@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] TMP_Text stepText;
     [SerializeField] ParticleSystem dieParticles;
 
     [SerializeField, Range(0.01f,1f)] private float moveDuration = 0.4f;
@@ -13,6 +15,14 @@ public class Player : MonoBehaviour
     private float backBoundary;
     private float leftBoundary;
     private float rightBoundary;
+
+    [SerializeField] private int maxTravel;
+    public int MaxTravel { get => maxTravel;}
+
+    [SerializeField] private int currentTravel;
+    public int CurrentTravel { get => currentTravel; }
+
+    public bool isDie { get => this.enabled == false;}
 
     public void SetUp(int minZpos, int extent)
     {
@@ -77,7 +87,18 @@ public class Player : MonoBehaviour
 
         //maju mundur samping
         transform.DOMoveX(targetPosition.x, moveDuration);
-        transform.DOMoveZ(targetPosition.z, moveDuration);
+        transform.DOMoveZ(targetPosition.z, moveDuration).OnComplete(UpdateTravel);
+    }
+
+    private void UpdateTravel()
+    {
+        currentTravel = (int) this.transform.position.z;
+        if (currentTravel > maxTravel)
+        {
+            maxTravel = currentTravel;
+        }
+
+        stepText.SetText("Step : " + maxTravel.ToString());
     }
 
     private bool isJumping()
@@ -93,11 +114,11 @@ public class Player : MonoBehaviour
         }
         if(other.tag == "Car")
         {
-            AnimateDie();
+            AnimateCrash();
         }
     }
 
-    private void AnimateDie()
+    private void AnimateCrash()
     {
         transform.DOScaleY(0.1f, 0.2f);
         transform.DOScaleX(2f, 0.2f);
