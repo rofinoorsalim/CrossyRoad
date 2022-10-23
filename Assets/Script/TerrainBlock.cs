@@ -21,7 +21,7 @@ public class TerrainBlock : MonoBehaviour
             if (i == 0) continue;
             var m = Instantiate(main);
             m.transform.SetParent(this.transform);
-            m.transform.localPosition = new Vector3((extent)*i, 0, 0);
+            m.transform.localPosition = new Vector3((extent + 1)*i, 0, 0);
             m.transform.GetComponentInChildren<Renderer>().material.color *= Color.grey;
         }
 

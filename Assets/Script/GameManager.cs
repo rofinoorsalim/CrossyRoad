@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private FollowZCharacter cameraContoller;
-    [SerializeField] private PlayerCharacter playerCharacter;
-
     [SerializeField] private GameObject grass;
     [SerializeField] private GameObject road;
 
@@ -37,9 +34,6 @@ public class GameManager : MonoBehaviour
             //instantiate block
             CreateTerrain(prefabs, z);
         }
-
-        cameraContoller.Initialize();
-        playerCharacter.Initialize();
     }
 
 
