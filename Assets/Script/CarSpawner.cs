@@ -7,6 +7,10 @@ public class CarSpawner : MonoBehaviour
     [SerializeField] GameObject carPrefabs;
     [SerializeField] TerrainBlock terrain;
 
+    [SerializeField] float minSpawnDuration=2;
+    [SerializeField] float maxSpawnDuration=4;
+
+
     bool isRight;
 
     float timer = 3;
@@ -14,6 +18,7 @@ public class CarSpawner : MonoBehaviour
     private void Start()
     {
         isRight = Random.value > 0.5f ? true : false;
+        timer = Random.Range(minSpawnDuration, maxSpawnDuration);
     }
     private void Update()
     {
