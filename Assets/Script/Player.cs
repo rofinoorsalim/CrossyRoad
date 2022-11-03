@@ -67,6 +67,7 @@ public class Player : MonoBehaviour
 
     private void Jump(Vector3 targetDirection)
     {
+        SoundManager.instance.JumpingSound();
         //Atur rotasi
         Vector3 targetPosition = transform.position + targetDirection;
         transform.LookAt(targetPosition);
@@ -120,6 +121,7 @@ public class Player : MonoBehaviour
 
     private void AnimateCrash()
     {
+        SoundManager.instance.CrashSound();
         transform.DOScaleY(0.1f, 0.2f);
         transform.DOScaleX(2f, 0.2f);
 
